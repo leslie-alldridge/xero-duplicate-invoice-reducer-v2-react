@@ -119,12 +119,19 @@ class InvoiceTable extends React.Component {
     });
     console.log(data);
 
-    this.setState({
-      duplicates: data
-    });
-    this.setState({
-      noDupes: true
-    });
+    this.setState(
+      {
+        duplicates: data
+      },
+      () => {
+        if (this.state.duplicates.length < 1) {
+          this.setState({
+            noDupes: true
+          });
+        }
+      }
+    );
+
     console.log(this.state);
   }
 
