@@ -121,6 +121,12 @@ class InvoiceTable extends React.Component {
       }
     });
     console.log(data);
+    let newData = [];
+    Object.keys(data).forEach(function(key) {
+      newData.push(data[key]);
+    });
+    console.log(newData);
+
     if (Object.keys(data).length < 1) {
       this.setState({
         loading: false,
@@ -129,7 +135,7 @@ class InvoiceTable extends React.Component {
     } else {
       this.setState(
         {
-          duplicates: [data],
+          duplicates: newData,
           loading: true
         },
         () => {

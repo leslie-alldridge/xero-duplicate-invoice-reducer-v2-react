@@ -32,7 +32,7 @@ class DupeTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      duplicates: this.props.data
+      duplicates: this.props.data || {}
     };
   }
 
@@ -74,15 +74,11 @@ class DupeTable extends React.Component {
               </TableHead>
               <TableBody>
                 {this.state.duplicates.map(invoice => {
-                  return Object.keys(invoice).forEach(function(key) {
-                    console.log(key, invoice[key]);
-
-                    console.log(invoice);
-                    return (
-                      <TableRow>
-                        <TableCell numeric>I'm a dupe</TableCell>
-                        <TableCell numeric>
-                          {/* {this.state.type == 'ACCREC' && (
+                  return (
+                    <TableRow>
+                      <TableCell numeric>I'm a dupe</TableCell>
+                      <TableCell numeric>
+                        {/* {this.state.type == 'ACCREC' && (
                             <a
                               href={`https://go.xero.com/AccountsReceivable/View.aspx?invoiceid=${
                                 invoice.InvoiceID
@@ -102,24 +98,23 @@ class DupeTable extends React.Component {
                               {invoice.InvoiceNumber || 'No reference'}
                             </a>
                           )} */}
-                        </TableCell>
-                        <TableCell numeric>
-                          {/* {invoice[name].datesListDateString.slice(0, 10)} */}
-                        </TableCell>
-                        <TableCell numeric>
-                          {/* {invoice.DueDateString.slice(0, 10)} */}
-                        </TableCell>
-                        <TableCell numeric>
-                          {/* {String(invoice.Contact.Name).length > 10
+                      </TableCell>
+                      <TableCell numeric>
+                        {/* {invoice[name].datesListDateString.slice(0, 10)} */}
+                      </TableCell>
+                      <TableCell numeric>
+                        {/* {invoice.DueDateString.slice(0, 10)} */}
+                      </TableCell>
+                      <TableCell numeric>
+                        {/* {String(invoice.Contact.Name).length > 10
                           ? String(invoice.Contact.Name).substring(0, 10) +
                             '...'
                           : invoice.Contact.Name} */}
-                        </TableCell>
-                        {console.log(invoice[key].total)}
-                        <TableCell numeric>${invoice[key].total}</TableCell>
-                      </TableRow>
-                    );
-                  });
+                      </TableCell>
+                      {console.log(invoice.total)}
+                      <TableCell numeric>${invoice.total}</TableCell>
+                    </TableRow>
+                  );
                 })}
               </TableBody>
             </Table>

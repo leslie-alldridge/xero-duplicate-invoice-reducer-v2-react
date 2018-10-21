@@ -29899,6 +29899,12 @@ var InvoiceTable = function (_React$Component) {
         }
       });
       console.log(data);
+      var newData = [];
+      Object.keys(data).forEach(function (key) {
+        newData.push(data[key]);
+      });
+      console.log(newData);
+
       if (Object.keys(data).length < 1) {
         this.setState({
           loading: false,
@@ -29906,7 +29912,7 @@ var InvoiceTable = function (_React$Component) {
         });
       } else {
         this.setState({
-          duplicates: [data],
+          duplicates: newData,
           loading: true
         }, function () {
           setTimeout(function () {
@@ -43891,7 +43897,7 @@ var DupeTable = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (DupeTable.__proto__ || Object.getPrototypeOf(DupeTable)).call(this, props));
 
     _this.state = {
-      duplicates: _this.props.data
+      duplicates: _this.props.data || {}
     };
     return _this;
   }
@@ -43973,31 +43979,26 @@ var DupeTable = function (_React$Component) {
               _TableBody2.default,
               null,
               this.state.duplicates.map(function (invoice) {
-                return Object.keys(invoice).forEach(function (key) {
-                  console.log(key, invoice[key]);
-
-                  console.log(invoice);
-                  return _react2.default.createElement(
-                    _TableRow2.default,
-                    null,
-                    _react2.default.createElement(
-                      _TableCell2.default,
-                      { numeric: true },
-                      'I\'m a dupe'
-                    ),
-                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                    console.log(invoice[key].total),
-                    _react2.default.createElement(
-                      _TableCell2.default,
-                      { numeric: true },
-                      '$',
-                      invoice[key].total
-                    )
-                  );
-                });
+                return _react2.default.createElement(
+                  _TableRow2.default,
+                  null,
+                  _react2.default.createElement(
+                    _TableCell2.default,
+                    { numeric: true },
+                    'I\'m a dupe'
+                  ),
+                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                  console.log(invoice.total),
+                  _react2.default.createElement(
+                    _TableCell2.default,
+                    { numeric: true },
+                    '$',
+                    invoice.total
+                  )
+                );
               })
             )
           ),
