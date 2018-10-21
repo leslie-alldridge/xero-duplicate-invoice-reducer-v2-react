@@ -140,19 +140,6 @@ class InvoiceTable extends React.Component {
         }
       );
     }
-
-    // this.setState(
-    //   {
-    //     duplicates: [data],
-    //     loading: true
-    //   },
-    //   () => {
-    //     setTimeout(() => {
-    //       this.swapPage();
-    //     }, 50);
-    //     console.log(this.state.duplicates);
-    //   }
-    // );
   }
 
   swapPage() {
@@ -326,7 +313,7 @@ class InvoiceTable extends React.Component {
     const rowCount = this.state.rows.length;
     return (
       <div>
-        {this.state.showDupes && <ShowDupes />}
+        {this.state.showDupes && <ShowDupes data={this.state.duplicates} />}
 
         {!this.state.loading &&
           !this.state.showDupes && (

@@ -29915,19 +29915,6 @@ var InvoiceTable = function (_React$Component) {
           console.log(_this2.state.duplicates);
         });
       }
-
-      // this.setState(
-      //   {
-      //     duplicates: [data],
-      //     loading: true
-      //   },
-      //   () => {
-      //     setTimeout(() => {
-      //       this.swapPage();
-      //     }, 50);
-      //     console.log(this.state.duplicates);
-      //   }
-      // );
     }
   }, {
     key: 'swapPage',
@@ -30115,7 +30102,7 @@ var InvoiceTable = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        this.state.showDupes && _react2.default.createElement(_ShowDupes2.default, null),
+        this.state.showDupes && _react2.default.createElement(_ShowDupes2.default, { data: this.state.duplicates }),
         !this.state.loading && !this.state.showDupes && _react2.default.createElement(
           'p',
           null,
@@ -43904,7 +43891,7 @@ var DupeTable = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (DupeTable.__proto__ || Object.getPrototypeOf(DupeTable)).call(this, props));
 
     _this.state = {
-      duplicates: _this.props.duplicates
+      duplicates: _this.props.data
     };
     return _this;
   }
@@ -43941,7 +43928,84 @@ var DupeTable = function (_React$Component) {
             null,
             'Summarized invoices'
           )
-        )
+        ),
+        this.state.apiLimit && 'Xero API Limit reached, please wait sixty seconds for it to reset',
+        _react2.default.createElement(
+          _Paper2.default,
+          { className: classes.root },
+          !this.state.loading && _react2.default.createElement(
+            _Table2.default,
+            { className: classes.table },
+            _react2.default.createElement(
+              _TableHead2.default,
+              null,
+              _react2.default.createElement(
+                _TableRow2.default,
+                null,
+                _react2.default.createElement(
+                  _TableCell2.default,
+                  { numeric: true },
+                  'Create Invoice'
+                ),
+                _react2.default.createElement(
+                  _TableCell2.default,
+                  { numeric: true },
+                  'Date'
+                ),
+                _react2.default.createElement(
+                  _TableCell2.default,
+                  { numeric: true },
+                  'Due Date'
+                ),
+                _react2.default.createElement(
+                  _TableCell2.default,
+                  { numeric: true },
+                  'Contact'
+                ),
+                _react2.default.createElement(
+                  _TableCell2.default,
+                  { numeric: true },
+                  'Total'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _TableBody2.default,
+              null,
+              this.state.duplicates.map(function (invoice) {
+                return Object.keys(invoice).forEach(function (key) {
+                  console.log(key, invoice[key]);
+
+                  console.log(invoice);
+                  return _react2.default.createElement(
+                    _TableRow2.default,
+                    null,
+                    _react2.default.createElement(
+                      _TableCell2.default,
+                      { numeric: true },
+                      'I\'m a dupe'
+                    ),
+                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                    _react2.default.createElement(_TableCell2.default, { numeric: true }),
+                    console.log(invoice[key].total),
+                    _react2.default.createElement(
+                      _TableCell2.default,
+                      { numeric: true },
+                      '$',
+                      invoice[key].total
+                    )
+                  );
+                });
+              })
+            )
+          ),
+          this.state.loading && _react2.default.createElement(_Loading2.default, null),
+          _react2.default.createElement('div', { id: 'buttons' })
+        ),
+        this.state.open && _react2.default.createElement(_Modal2.default, { open: this.state.open, close: this.closeModal }),
+        this.state.error && _react2.default.createElement(_ErrSnackbar2.default, { handleClose: this.handleClose, open: this.state.error })
       );
     }
   }]);

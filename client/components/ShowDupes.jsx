@@ -32,7 +32,7 @@ class DupeTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      duplicates: this.props.duplicates
+      duplicates: this.props.data
     };
   }
 
@@ -58,7 +58,7 @@ class DupeTable extends React.Component {
             You're now viewing: <b>Summarized invoices</b>
           </p>
         )}
-        {/* {this.state.apiLimit &&
+        {this.state.apiLimit &&
           'Xero API Limit reached, please wait sixty seconds for it to reset'}
         <Paper className={classes.root}>
           {!this.state.loading && (
@@ -73,16 +73,16 @@ class DupeTable extends React.Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {this.state.invoices.map(invoice => {
-                  if (
-                    invoice.InvoiceNumber !== 'Expense Claims' &&
-                    this.state.type == invoice.Type
-                  ) {
+                {this.state.duplicates.map(invoice => {
+                  return Object.keys(invoice).forEach(function(key) {
+                    console.log(key, invoice[key]);
+
+                    console.log(invoice);
                     return (
-                      <TableRow key={invoice.InvoiceID}>
+                      <TableRow>
                         <TableCell numeric>I'm a dupe</TableCell>
                         <TableCell numeric>
-                          {this.state.type == 'ACCREC' && (
+                          {/* {this.state.type == 'ACCREC' && (
                             <a
                               href={`https://go.xero.com/AccountsReceivable/View.aspx?invoiceid=${
                                 invoice.InvoiceID
@@ -101,54 +101,38 @@ class DupeTable extends React.Component {
                             >
                               {invoice.InvoiceNumber || 'No reference'}
                             </a>
-                          )}
+                          )} */}
                         </TableCell>
                         <TableCell numeric>
-                          {invoice.DateString.slice(0, 10)}
+                          {/* {invoice[name].datesListDateString.slice(0, 10)} */}
                         </TableCell>
                         <TableCell numeric>
-                          {invoice.DueDateString.slice(0, 10)}
+                          {/* {invoice.DueDateString.slice(0, 10)} */}
                         </TableCell>
                         <TableCell numeric>
-                          {String(invoice.Contact.Name).length > 10
-                            ? String(invoice.Contact.Name).substring(0, 10) +
-                              '...'
-                            : invoice.Contact.Name}
+                          {/* {String(invoice.Contact.Name).length > 10
+                          ? String(invoice.Contact.Name).substring(0, 10) +
+                            '...'
+                          : invoice.Contact.Name} */}
                         </TableCell>
-                        <TableCell numeric>${invoice.Total}</TableCell>
+                        {console.log(invoice[key].total)}
+                        <TableCell numeric>${invoice[key].total}</TableCell>
                       </TableRow>
                     );
-                  }
+                  });
                 })}
               </TableBody>
             </Table>
           )}
           {this.state.loading && <Loading />}
-          <div id="buttons">
-            <CheckButton
-              onClick={() => {
-                this.findDupes();
-              }}
-            />
-          </div>
-          <SwitchToggle
-            checked={this.state.checkedA}
-            toggle={this.handleToggle}
-          />
-          <Notification
-            handleClose={this.handleClose}
-            open={this.state.snackbar}
-          />
+          <div id="buttons">{/* BUTTONS GO HERE */}</div>
         </Paper>
-        <p style={{ color: '#3f51b5' }} onClick={this.openModal}>
-          Need help? Click here
-        </p>
         {this.state.open && (
           <SimpleModalWrapped open={this.state.open} close={this.closeModal} />
         )}
         {this.state.error && (
           <ErrSnackbar handleClose={this.handleClose} open={this.state.error} />
-        )} */}
+        )}
       </div>
     );
   }
