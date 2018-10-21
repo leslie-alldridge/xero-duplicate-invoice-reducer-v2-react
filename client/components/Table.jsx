@@ -11,9 +11,9 @@ import Notification from './Snackbar';
 import ErrSnackbar from './ErrSnackbar';
 import SimpleModalWrapped from './Modals/Modal';
 import NoDupesModal from './Modals/NoDupes';
+import showDupes from './ShowDupes';
 
 import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -22,6 +22,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
+import ShowDupes from './ShowDupes';
 
 const styles = theme => ({
   root: {
@@ -65,6 +66,7 @@ class InvoiceTable extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.findDupes = this.findDupes.bind(this);
     this.closeDupeModal = this.closeDupeModal.bind(this);
+    this.swapPage = this.swapPage.bind(this);
   }
 
   findDupes() {
@@ -119,23 +121,59 @@ class InvoiceTable extends React.Component {
       }
     });
     console.log(data);
-
-    this.setState(
-      {
-        duplicates: data
-      },
-      () => {
-        if (this.state.duplicates.length < 1) {
-          this.setState({
-            noDupes: true
-          });
-        } else {
-          this.setState({
-            showDupes: true
-          });
+    if (Object.keys(data).length < 1) {
+      this.setState({
+        loading: false,
+        noDupes: true
+      });
+    } else {
+      this.setState(
+        {
+          duplicates: [data],
+          loading: true
+        },
+        () => {
+          setTimeout(() => {
+            this.swapPage();
+          }, 50);
+          console.log(this.state.duplicates);
         }
+      );
+    }
+
+    // this.setState(
+    //   {
+    //     duplicates: [data],
+    //     loading: true
+    //   },
+    //   () => {
+    //     setTimeout(() => {
+    //       this.swapPage();
+    //     }, 50);
+    //     console.log(this.state.duplicates);
+    //   }
+    // );
+  }
+
+  swapPage() {
+    console.log(this.state.duplicates.length);
+    setTimeout(() => {
+      if (this.state.duplicates.length < 1) {
+        this.setState({
+          noDupes: true,
+          loading: false
+        });
+      } else if (this.state.duplicates.length >= 1) {
+        this.setState({
+          showDupes: true,
+          loading: false
+        });
+      } else {
+        this.setState({
+          loading: false
+        });
       }
-    );
+    }, 150);
 
     console.log(this.state);
   }
@@ -288,166 +326,152 @@ class InvoiceTable extends React.Component {
     const rowCount = this.state.rows.length;
     return (
       <div>
-        {!this.state.loading && (
-          <p>
-            You're now viewing:{' '}
-            {this.state.type == 'ACCREC' ? (
-              <b>
-                Accounts Receivable -{' '}
-                {this.state.page > 1 && (
-                  <ArrowBackIos
-                    style={{
-                      color: '#3f51b5',
-                      marginTop: '10px',
-                      paddingTop: '10px'
-                    }}
-                    onClick={this.handleChangePageBack}
-                  />
-                )}
-                Page {this.state.page}{' '}
-                {rowCount >= 100 && (
-                  <ArrowForwardIos
-                    style={{
-                      color: '#3f51b5',
-                      marginTop: '10px',
-                      paddingTop: '10px'
-                    }}
-                    onClick={this.handleChangePage}
-                  />
-                )}
-              </b>
-            ) : (
-              <b>
-                Accounts Payable -
-                {this.state.page > 1 && (
-                  <ArrowBackIos
-                    style={{
-                      color: '#3f51b5',
-                      marginTop: '10px',
-                      paddingTop: '10px'
-                    }}
-                  />
-                )}{' '}
-                Page {this.state.page}{' '}
-                {rowCount >= 100 && (
-                  <ArrowForwardIos
-                    style={{
-                      color: '#3f51b5',
-                      marginTop: '10px',
-                      paddingTop: '10px'
-                    }}
-                    onClick={this.handleChangePage}
-                  />
-                )}
-              </b>
-            )}
-          </p>
-        )}
+        {this.state.showDupes && <ShowDupes />}
+
+        {!this.state.loading &&
+          !this.state.showDupes && (
+            <p>
+              You're now viewing:{' '}
+              {this.state.type == 'ACCREC' ? (
+                <b>
+                  Accounts Receivable -{' '}
+                  {this.state.page > 1 && (
+                    <ArrowBackIos
+                      style={{
+                        color: '#3f51b5',
+                        marginTop: '10px',
+                        paddingTop: '10px'
+                      }}
+                      onClick={this.handleChangePageBack}
+                    />
+                  )}
+                  Page {this.state.page}{' '}
+                  {rowCount >= 100 && (
+                    <ArrowForwardIos
+                      style={{
+                        color: '#3f51b5',
+                        marginTop: '10px',
+                        paddingTop: '10px'
+                      }}
+                      onClick={this.handleChangePage}
+                    />
+                  )}
+                </b>
+              ) : (
+                <b>
+                  Accounts Payable -
+                  {this.state.page > 1 && (
+                    <ArrowBackIos
+                      style={{
+                        color: '#3f51b5',
+                        marginTop: '10px',
+                        paddingTop: '10px'
+                      }}
+                    />
+                  )}{' '}
+                  Page {this.state.page}{' '}
+                  {rowCount >= 100 && (
+                    <ArrowForwardIos
+                      style={{
+                        color: '#3f51b5',
+                        marginTop: '10px',
+                        paddingTop: '10px'
+                      }}
+                      onClick={this.handleChangePage}
+                    />
+                  )}
+                </b>
+              )}
+            </p>
+          )}
         {this.state.apiLimit &&
           'Xero API Limit reached, please wait sixty seconds for it to reset'}
         <Paper className={classes.root}>
-          {!this.state.loading && (
-            <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      indeterminate={numSelected > 0 && numSelected < rowCount}
-                      onChange={this.handleSelectAllClick}
-                      checked={
-                        this.state.selected.length > 0 &&
-                        this.state.selected.length == rowCount
-                      }
-                    />
-                  </TableCell> */}
-                  {this.state.type == 'ACCREC' && (
-                    <TableCell numeric>Invoice Number</TableCell>
-                  )}
-                  {this.state.type == 'ACCPAY' && (
-                    <TableCell numeric>Bill Reference</TableCell>
-                  )}
-                  <TableCell numeric>Date</TableCell>
-                  <TableCell numeric>Due Date</TableCell>
-                  <TableCell numeric>Contact</TableCell>
-                  <TableCell numeric>Total</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {this.state.invoices.map(invoice => {
-                  if (
-                    invoice.InvoiceNumber !== 'Expense Claims' &&
-                    this.state.type == invoice.Type
-                  ) {
-                    return (
-                      <TableRow key={invoice.InvoiceID}>
-                        {/* <TableCell
-                          onChange={() => {
-                            this.boxChange(invoice.InvoiceID);
-                          }}
-                          padding="checkbox"
-                        >
-                          <Checkbox
-                            checked={this.state.selected.includes(
-                              invoice.InvoiceID
+          {!this.state.loading &&
+            !this.state.showDupes && (
+              <Table className={classes.table}>
+                <TableHead>
+                  <TableRow>
+                    {this.state.type == 'ACCREC' && (
+                      <TableCell numeric>Invoice Number</TableCell>
+                    )}
+                    {this.state.type == 'ACCPAY' && (
+                      <TableCell numeric>Bill Reference</TableCell>
+                    )}
+                    <TableCell numeric>Date</TableCell>
+                    <TableCell numeric>Due Date</TableCell>
+                    <TableCell numeric>Contact</TableCell>
+                    <TableCell numeric>Total</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {this.state.invoices.map(invoice => {
+                    if (
+                      invoice.InvoiceNumber !== 'Expense Claims' &&
+                      this.state.type == invoice.Type
+                    ) {
+                      return (
+                        <TableRow key={invoice.InvoiceID}>
+                          <TableCell numeric>
+                            {this.state.type == 'ACCREC' && (
+                              <a
+                                href={`https://go.xero.com/AccountsReceivable/View.aspx?invoiceid=${
+                                  invoice.InvoiceID
+                                }`}
+                                target="_blank"
+                              >
+                                {invoice.InvoiceNumber}
+                              </a>
                             )}
-                          />
-                        </TableCell> */}
-                        <TableCell numeric>
-                          {this.state.type == 'ACCREC' && (
-                            <a
-                              href={`https://go.xero.com/AccountsReceivable/View.aspx?invoiceid=${
-                                invoice.InvoiceID
-                              }`}
-                              target="_blank"
-                            >
-                              {invoice.InvoiceNumber}
-                            </a>
-                          )}
-                          {this.state.type == 'ACCPAY' && (
-                            <a
-                              href={`https://go.xero.com/AccountsPayable/View.aspx?invoiceid=${
-                                invoice.InvoiceID
-                              }`}
-                              target="_blank"
-                            >
-                              {invoice.InvoiceNumber || 'No reference'}
-                            </a>
-                          )}
-                        </TableCell>
-                        <TableCell numeric>
-                          {invoice.DateString.slice(0, 10)}
-                        </TableCell>
-                        <TableCell numeric>
-                          {invoice.DueDateString.slice(0, 10)}
-                        </TableCell>
-                        <TableCell numeric>
-                          {String(invoice.Contact.Name).length > 10
-                            ? String(invoice.Contact.Name).substring(0, 10) +
-                              '...'
-                            : invoice.Contact.Name}
-                        </TableCell>
-                        <TableCell numeric>${invoice.Total}</TableCell>
-                      </TableRow>
-                    );
-                  }
-                })}
-              </TableBody>
-            </Table>
-          )}
+                            {this.state.type == 'ACCPAY' && (
+                              <a
+                                href={`https://go.xero.com/AccountsPayable/View.aspx?invoiceid=${
+                                  invoice.InvoiceID
+                                }`}
+                                target="_blank"
+                              >
+                                {invoice.InvoiceNumber || 'No reference'}
+                              </a>
+                            )}
+                          </TableCell>
+                          <TableCell numeric>
+                            {invoice.DateString.slice(0, 10)}
+                          </TableCell>
+                          <TableCell numeric>
+                            {invoice.DueDateString.slice(0, 10)}
+                          </TableCell>
+                          <TableCell numeric>
+                            {String(invoice.Contact.Name).length > 10
+                              ? String(invoice.Contact.Name).substring(0, 10) +
+                                '...'
+                              : invoice.Contact.Name}
+                          </TableCell>
+                          <TableCell numeric>${invoice.Total}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })}
+                </TableBody>
+              </Table>
+            )}
           {this.state.loading && <Loading />}
-          <div id="buttons">
-            <XeroButton />
-            <RetrieveButton onClick={this.handleClick} />
-            <CheckButton
-              onClick={() => {
-                this.findDupes();
-              }}
+          {!this.state.showDupes && (
+            <div id="buttons">
+              <XeroButton />
+              <RetrieveButton onClick={this.handleClick} />
+              <CheckButton
+                onClick={() => {
+                  this.findDupes();
+                }}
+              />
+            </div>
+          )}
+          {!this.state.showDupes && (
+            <SwitchToggle
+              checked={this.state.checkedA}
+              toggle={this.handleToggle}
             />
-          </div>
-          <SwitchToggle
-            checked={this.state.checkedA}
-            toggle={this.handleToggle}
-          />
+          )}
           <Notification
             handleClose={this.handleClose}
             open={this.state.snackbar}

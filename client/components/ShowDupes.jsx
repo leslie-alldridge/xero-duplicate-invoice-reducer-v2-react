@@ -10,15 +10,12 @@ import ErrSnackbar from './ErrSnackbar';
 import SimpleModalWrapped from './Modals/Modal';
 
 import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
 
 const styles = theme => ({
   root: {
@@ -61,29 +58,14 @@ class DupeTable extends React.Component {
             You're now viewing: <b>Summarized invoices</b>
           </p>
         )}
-        {this.state.apiLimit &&
+        {/* {this.state.apiLimit &&
           'Xero API Limit reached, please wait sixty seconds for it to reset'}
         <Paper className={classes.root}>
           {!this.state.loading && (
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      indeterminate={numSelected > 0 && numSelected < rowCount}
-                      onChange={this.handleSelectAllClick}
-                      checked={
-                        this.state.selected.length > 0 &&
-                        this.state.selected.length == rowCount
-                      }
-                    />
-                  </TableCell>
-                  {this.state.type == 'ACCREC' && (
-                    <TableCell numeric>Invoice Number</TableCell>
-                  )}
-                  {this.state.type == 'ACCPAY' && (
-                    <TableCell numeric>Bill Reference</TableCell>
-                  )}
+                  <TableCell numeric>Create Invoice</TableCell>
                   <TableCell numeric>Date</TableCell>
                   <TableCell numeric>Due Date</TableCell>
                   <TableCell numeric>Contact</TableCell>
@@ -98,18 +80,7 @@ class DupeTable extends React.Component {
                   ) {
                     return (
                       <TableRow key={invoice.InvoiceID}>
-                        <TableCell
-                          onChange={() => {
-                            this.boxChange(invoice.InvoiceID);
-                          }}
-                          padding="checkbox"
-                        >
-                          <Checkbox
-                            checked={this.state.selected.includes(
-                              invoice.InvoiceID
-                            )}
-                          />
-                        </TableCell>
+                        <TableCell numeric>I'm a dupe</TableCell>
                         <TableCell numeric>
                           {this.state.type == 'ACCREC' && (
                             <a
@@ -177,7 +148,7 @@ class DupeTable extends React.Component {
         )}
         {this.state.error && (
           <ErrSnackbar handleClose={this.handleClose} open={this.state.error} />
-        )}
+        )} */}
       </div>
     );
   }
