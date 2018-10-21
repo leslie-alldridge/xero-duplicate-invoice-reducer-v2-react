@@ -29180,7 +29180,7 @@ var InvoiceTable = function (_React$Component) {
       checkedA: true,
       selected: [],
       snackbar: false
-    }, _defineProperty(_this$state, 'page', 1), _defineProperty(_this$state, 'open', false), _defineProperty(_this$state, 'duplicates', []), _defineProperty(_this$state, 'noDupes', false), _this$state);
+    }, _defineProperty(_this$state, 'page', 1), _defineProperty(_this$state, 'open', false), _defineProperty(_this$state, 'duplicates', []), _defineProperty(_this$state, 'noDupes', false), _defineProperty(_this$state, 'showDupes', false), _this$state);
     _this.handleClick = _this.handleClick.bind(_this);
     _this.handleToggle = _this.handleToggle.bind(_this);
     _this.handleSelectAllClick = _this.handleSelectAllClick.bind(_this);
@@ -29257,6 +29257,10 @@ var InvoiceTable = function (_React$Component) {
         if (_this2.state.duplicates.length < 1) {
           _this2.setState({
             noDupes: true
+          });
+        } else {
+          _this2.setState({
+            showDupes: true
           });
         }
       });
@@ -29467,7 +29471,7 @@ var InvoiceTable = function (_React$Component) {
             'Page ',
             this.state.page,
             ' ',
-            _react2.default.createElement(_ArrowForwardIos2.default, {
+            rowCount >= 100 && _react2.default.createElement(_ArrowForwardIos2.default, {
               style: {
                 color: '#3f51b5',
                 marginTop: '10px',
@@ -29490,15 +29494,6 @@ var InvoiceTable = function (_React$Component) {
               _react2.default.createElement(
                 _TableRow2.default,
                 null,
-                _react2.default.createElement(
-                  _TableCell2.default,
-                  { padding: 'checkbox' },
-                  _react2.default.createElement(_Checkbox2.default, {
-                    indeterminate: numSelected > 0 && numSelected < rowCount,
-                    onChange: this.handleSelectAllClick,
-                    checked: this.state.selected.length > 0 && this.state.selected.length == rowCount
-                  })
-                ),
                 this.state.type == 'ACCREC' && _react2.default.createElement(
                   _TableCell2.default,
                   { numeric: true },
@@ -29539,18 +29534,6 @@ var InvoiceTable = function (_React$Component) {
                   return _react2.default.createElement(
                     _TableRow2.default,
                     { key: invoice.InvoiceID },
-                    _react2.default.createElement(
-                      _TableCell2.default,
-                      {
-                        onChange: function onChange() {
-                          _this7.boxChange(invoice.InvoiceID);
-                        },
-                        padding: 'checkbox'
-                      },
-                      _react2.default.createElement(_Checkbox2.default, {
-                        checked: _this7.state.selected.includes(invoice.InvoiceID)
-                      })
-                    ),
                     _react2.default.createElement(
                       _TableCell2.default,
                       { numeric: true },

@@ -51,7 +51,8 @@ class InvoiceTable extends React.Component {
       page: 1,
       open: false,
       duplicates: [],
-      noDupes: false
+      noDupes: false,
+      showDupes: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -127,6 +128,10 @@ class InvoiceTable extends React.Component {
         if (this.state.duplicates.length < 1) {
           this.setState({
             noDupes: true
+          });
+        } else {
+          this.setState({
+            showDupes: true
           });
         }
       }
@@ -324,14 +329,16 @@ class InvoiceTable extends React.Component {
                   />
                 )}{' '}
                 Page {this.state.page}{' '}
-                <ArrowForwardIos
-                  style={{
-                    color: '#3f51b5',
-                    marginTop: '10px',
-                    paddingTop: '10px'
-                  }}
-                  onClick={this.handleChangePage}
-                />
+                {rowCount >= 100 && (
+                  <ArrowForwardIos
+                    style={{
+                      color: '#3f51b5',
+                      marginTop: '10px',
+                      paddingTop: '10px'
+                    }}
+                    onClick={this.handleChangePage}
+                  />
+                )}
               </b>
             )}
           </p>
@@ -343,7 +350,7 @@ class InvoiceTable extends React.Component {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       indeterminate={numSelected > 0 && numSelected < rowCount}
                       onChange={this.handleSelectAllClick}
@@ -352,7 +359,7 @@ class InvoiceTable extends React.Component {
                         this.state.selected.length == rowCount
                       }
                     />
-                  </TableCell>
+                  </TableCell> */}
                   {this.state.type == 'ACCREC' && (
                     <TableCell numeric>Invoice Number</TableCell>
                   )}
@@ -373,7 +380,7 @@ class InvoiceTable extends React.Component {
                   ) {
                     return (
                       <TableRow key={invoice.InvoiceID}>
-                        <TableCell
+                        {/* <TableCell
                           onChange={() => {
                             this.boxChange(invoice.InvoiceID);
                           }}
@@ -384,7 +391,7 @@ class InvoiceTable extends React.Component {
                               invoice.InvoiceID
                             )}
                           />
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell numeric>
                           {this.state.type == 'ACCREC' && (
                             <a
