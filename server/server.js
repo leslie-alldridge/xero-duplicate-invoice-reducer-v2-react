@@ -34,13 +34,20 @@ app.get('/callback', async function(req, res) {
   res.redirect('/');
 });
 
-// app.get('/invoices/:id', async function(req, res) {
-//   let invoices = await xeroClient.invoices.get({
-//     Statuses: 'AUTHORISED',
-//     page: req.params.id
-//   });
-//   res.json(invoices);
-// });
+app.get('/invoices/:id', async function(req, res) {
+  let invoices = await xeroClient.invoices.get({
+    Statuses: 'AUTHORISED',
+    page: req.params.id
+  });
+  res.json(invoices);
+});
+
+app.post('/createinvoice', async function(req, res) {
+  console.log(req.body);
+  let invoice = await xeroClient.invoices.create({
+    //invoice data goes here
+  });
+});
 
 // app.post('/void', async function(req, res) {
 //   let toVoid = req.body.void;

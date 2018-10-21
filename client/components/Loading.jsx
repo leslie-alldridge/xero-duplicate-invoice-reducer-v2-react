@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import indigo from '@material-ui/core/colors/indigo';
+import green from '@material-ui/core/colors/green';
 
 const styles = theme => ({
   progress: {
@@ -17,7 +17,7 @@ function CircularIndeterminate(props) {
     <div>
       <CircularProgress
         className={classes.progress}
-        style={{ color: indigo[500] }}
+        style={{ color: green[500] }}
         thickness={7}
       />
     </div>
