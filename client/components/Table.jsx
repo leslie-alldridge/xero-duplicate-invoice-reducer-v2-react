@@ -9,7 +9,8 @@ import RetrieveButton from './Buttons/Retrieve';
 import CheckButton from './Buttons/Check';
 import Notification from './Snackbar';
 import ErrSnackbar from './ErrSnackbar';
-import SimpleModalWrapped from './Modal';
+import SimpleModalWrapped from './Modals/Modal';
+import NoDupesModal from './Modals/NoDupes';
 
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -46,33 +47,32 @@ class InvoiceTable extends React.Component {
       error: false,
       checkedA: true,
       selected: [],
-      voidConfirm: false,
       snackbar: false,
       page: 1,
-      open: false
+      open: false,
+      duplicates: [],
+      noDupes: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleSelectAllClick = this.handleSelectAllClick.bind(this);
     this.boxChange = this.boxChange.bind(this);
-    // this.handleVoid = this.handleVoid.bind(this);
-    // this.voidConfirmed = this.voidConfirmed.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleChangePage = this.handleChangePage.bind(this);
     this.handleChangePageBack = this.handleChangePageBack.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
     this.findDupes = this.findDupes.bind(this);
+    this.closeDupeModal = this.closeDupeModal.bind(this);
   }
 
   findDupes() {
-    let apiInfo = this.state.rows;
+    console.log('hit');
 
+    let apiInfo = this.state.rows;
     let data = {};
     for (let i = 0; i < apiInfo.length; i++) {
       let invoice = apiInfo[i];
-
       let name = invoice.Contact.Name;
       let date = invoice.DateString.slice(0, 10);
       if (!data.hasOwnProperty(name))
@@ -90,25 +90,18 @@ class InvoiceTable extends React.Component {
       data[name].total += Number(invoice.Total);
       data[name]['dates'][date].total += Number(invoice.Total);
       data[name]['dates'][date].invoices.push(invoice);
-      console.info(data.leslie);
-      console.log(data.nodupes);
     }
     for (let i = 0; i < apiInfo.length; i++) {
       let invoice = apiInfo[i];
       let name = invoice.Contact.Name;
       let date = invoice.DateString.slice(0, 10);
       if (data[name]['dates'][date].invoices.length <= 1) {
-        console.log(data[name]['dates'][date].invoices.length);
         data[name]['dates'][date].invoices.pop();
-        console.log('laters');
-        console.log(data[name]['dates'][date].invoices.length);
 
         data[name].total = data[name].total - data[name]['dates'][date].total;
         data[name]['dates'][date].total = 0;
       }
     }
-    console.log(data.leslie);
-    console.log(data.nodupes);
 
     let names = Object.keys(data);
     names.forEach(name => {
@@ -125,6 +118,14 @@ class InvoiceTable extends React.Component {
       }
     });
     console.log(data);
+
+    this.setState({
+      duplicates: data
+    });
+    this.setState({
+      noDupes: true
+    });
+    console.log(this.state);
   }
 
   handleClick() {
@@ -244,92 +245,6 @@ class InvoiceTable extends React.Component {
         });
   }
 
-  // handleVoid() {
-  //   this.setState({
-  //     voidConfirm: true
-  //   });
-  // }
-
-  // voidConfirmed() {
-  //   let obj = { void: this.state.selected };
-  //   if (this.state.selected.length > 50) {
-  //     this.setState({ loading: true });
-  //     let obj = { void: [] };
-  //     for (let i = 0; i < 50; i++) {
-  //       obj.void.push(this.state.selected[i]);
-  //     }
-  //     request('post', '/void', obj)
-  //       .then(res => {
-  //         this.setState({ apiLimit: true });
-  //         setTimeout(() => {
-  //           let obj = { void: [] };
-  //           for (let i = 50; i < this.state.selected.length; i++) {
-  //             obj.void.push(this.state.selected[i]);
-  //           }
-  //           request('post', '/void', obj)
-  //             .then(res => {})
-  //             .catch(err => {});
-  //           this.setState({
-  //             page: 0,
-  //             rows: [],
-  //             invoices: [],
-  //             type: 'ACCREC',
-  //             loading: false,
-  //             apiLimit: false,
-  //             error: false,
-  //             checkedA: true,
-  //             selected: [],
-  //             voidConfirm: false,
-  //             snackbar: false,
-  //             page: 1
-  //           });
-  //           setTimeout(() => {
-  //             this.handleClick();
-  //           }, 150);
-  //           this.setState({
-  //             apiLimit: false
-  //           });
-  //         }, 65000);
-  //       })
-  //       .catch(err => {
-  //         this.setState({
-  //           error: true,
-  //           loading: false
-  //         });
-  //       });
-  //   } else {
-  //     request('post', '/void', obj)
-  //       .then(res => {
-  //         this.setState({
-  //           page: 0,
-  //           rows: [],
-  //           invoices: [],
-  //           type: 'ACCREC',
-  //           loading: false,
-  //           apiLimit: false,
-  //           error: false,
-  //           checkedA: true,
-  //           selected: [],
-  //           voidConfirm: false,
-  //           snackbar: false,
-  //           page: 1
-  //         });
-  //         setTimeout(() => {
-  //           this.handleClick();
-  //         }, 350);
-  //         this.setState({
-  //           error: false,
-  //           snackbar: true
-  //         });
-  //       })
-  //       .catch(err => {
-  //         this.setState({
-  //           error: true
-  //         });
-  //       });
-  //   }
-  // }
-
   handleClose() {
     this.setState({
       snackbar: false,
@@ -346,6 +261,12 @@ class InvoiceTable extends React.Component {
   closeModal() {
     this.setState({
       open: false
+    });
+  }
+
+  closeDupeModal() {
+    this.setState({
+      noDupes: false
     });
   }
 
@@ -523,6 +444,9 @@ class InvoiceTable extends React.Component {
         </p>
         {this.state.open && (
           <SimpleModalWrapped open={this.state.open} close={this.closeModal} />
+        )}
+        {this.state.noDupes && (
+          <NoDupesModal open={this.state.noDupes} close={this.closeDupeModal} />
         )}
         {this.state.error && (
           <ErrSnackbar handleClose={this.handleClose} open={this.state.error} />
