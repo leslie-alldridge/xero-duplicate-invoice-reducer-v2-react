@@ -6,8 +6,7 @@ import Loading from './Loading';
 import SwitchToggle from './Buttons/Switch';
 import XeroButton from './Buttons/Send';
 import RetrieveButton from './Buttons/Retrieve';
-import VoidButton from './Buttons/Void';
-import VoidConfirm from './Buttons/VoidConfirm';
+import CheckButton from './Buttons/Check';
 import Notification from './Snackbar';
 import ErrSnackbar from './ErrSnackbar';
 import SimpleModalWrapped from './Modal';
@@ -19,7 +18,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import TableFooter from '@material-ui/core/TableFooter';
 import Paper from '@material-ui/core/Paper';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
@@ -442,12 +440,7 @@ class InvoiceTable extends React.Component {
           <div id="buttons">
             <XeroButton />
             <RetrieveButton onClick={this.handleClick} />
-            {!this.state.voidConfirm && (
-              <VoidButton onClick={this.handleVoid} />
-            )}
-            {this.state.voidConfirm && (
-              <VoidConfirm onClick={this.voidConfirmed} />
-            )}
+            <CheckButton />
           </div>
           <SwitchToggle
             checked={this.state.checkedA}

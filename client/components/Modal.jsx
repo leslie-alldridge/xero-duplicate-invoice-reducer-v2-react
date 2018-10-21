@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
@@ -50,21 +49,24 @@ class SimpleModal extends React.Component {
             </Typography>
             <Typography variant="subtitle1" id="simple-modal-description">
               1. Connect to your Xero organisation. <br />
-              <br /> 2. Click Retrieve Invoices and then select which ones to
-              void <br />
+              <br /> 2. You can toggle receivables/payables and navigate through
+              pages if desired. <br />
               <br />
-              3. You can toggle receivables/payables and navigate through pages
+              3. Click Retrieve Invoices and then press 'Find Duplicates' to
+              locate any duplicates.
               <br />
               <br />
-              4. Press Void and Confirm the void <br />
+              4. Browse the recommended duplicates and create a new summarized
+              invoice that'll save in Xero. <br />
               <br />
-              Notes: If voiding more than the API limits allow, the app will
-              wait for you and submit the rest of the invoices once the API
-              limit has reset (60 seconds). <br />
+              5. Ability to void the invoices post summary is coming soon!{' '}
+              <br />
+              <br />
+              Notes: Xero allows 60 API calls per minute so please respect these
+              limits otherwise your changes won't save. <br />
               <br />
               Selected invoies will be reset everytime you navigate to a new
-              page, this encourages a safe amount of voiding each time (100
-              max). <br />
+              page, this encourages a safe amount of summarizing. <br />
               <br />
               If the hyperlinks don't work, please ensure you're logged in to
               the right organisation in your web browser (open a new tab for

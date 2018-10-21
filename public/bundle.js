@@ -29069,13 +29069,9 @@ var _Retrieve = __webpack_require__(273);
 
 var _Retrieve2 = _interopRequireDefault(_Retrieve);
 
-var _Void = __webpack_require__(275);
+var _Check = __webpack_require__(481);
 
-var _Void2 = _interopRequireDefault(_Void);
-
-var _VoidConfirm = __webpack_require__(277);
-
-var _VoidConfirm2 = _interopRequireDefault(_VoidConfirm);
+var _Check2 = _interopRequireDefault(_Check);
 
 var _Snackbar = __webpack_require__(279);
 
@@ -29114,10 +29110,6 @@ var _TableHead2 = _interopRequireDefault(_TableHead);
 var _TableRow = __webpack_require__(135);
 
 var _TableRow2 = _interopRequireDefault(_TableRow);
-
-var _TableFooter = __webpack_require__(136);
-
-var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
 var _Paper = __webpack_require__(22);
 
@@ -29606,8 +29598,7 @@ var InvoiceTable = function (_React$Component) {
             { id: 'buttons' },
             _react2.default.createElement(_Send2.default, null),
             _react2.default.createElement(_Retrieve2.default, { onClick: this.handleClick }),
-            !this.state.voidConfirm && _react2.default.createElement(_Void2.default, { onClick: this.handleVoid }),
-            this.state.voidConfirm && _react2.default.createElement(_VoidConfirm2.default, { onClick: this.voidConfirmed })
+            _react2.default.createElement(_Check2.default, null)
           ),
           _react2.default.createElement(_Switch2.default, {
             checked: this.state.checkedA,
@@ -40337,215 +40328,10 @@ var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.d
 exports.default = _default;
 
 /***/ }),
-/* 275 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(3);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Button = __webpack_require__(27);
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _styles = __webpack_require__(17);
-
-var _Icon = __webpack_require__(49);
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
-var _Delete = __webpack_require__(276);
-
-var _Delete2 = _interopRequireDefault(_Delete);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = function styles(theme) {
-  return {
-    button: {
-      margin: theme.spacing.unit
-    },
-    rightIcon: {
-      marginLeft: theme.spacing.unit
-    }
-  };
-};
-
-function VoidButton(props) {
-  var classes = props.classes;
-
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      _Button2.default,
-      {
-        variant: 'contained',
-        color: 'secondary',
-        className: classes.button,
-        onClick: props.onClick
-      },
-      'Void Invoices',
-      _react2.default.createElement(
-        _Icon2.default,
-        { className: classes.rightIcon },
-        _react2.default.createElement(_Delete2.default, null)
-      )
-    )
-  );
-}
-
-VoidButton.propTypes = {
-  classes: _propTypes2.default.object.isRequired
-};
-
-exports.default = (0, _styles.withStyles)(styles)(VoidButton);
-
-/***/ }),
-/* 276 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(1));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(32));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
-  d: "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
-}), _react.default.createElement("path", {
-  fill: "none",
-  d: "M0 0h24v24H0z"
-})), 'Delete');
-
-exports.default = _default;
-
-/***/ }),
-/* 277 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(3);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Button = __webpack_require__(27);
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _styles = __webpack_require__(17);
-
-var _Icon = __webpack_require__(49);
-
-var _Icon2 = _interopRequireDefault(_Icon);
-
-var _DeleteForever = __webpack_require__(278);
-
-var _DeleteForever2 = _interopRequireDefault(_DeleteForever);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = function styles(theme) {
-  return {
-    button: {
-      margin: theme.spacing.unit
-    },
-    rightIcon: {
-      marginLeft: theme.spacing.unit
-    }
-  };
-};
-
-function VoidConfirm(props) {
-  var classes = props.classes;
-
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      _Button2.default,
-      {
-        variant: 'contained',
-        color: 'secondary',
-        className: classes.button,
-        onClick: props.onClick
-      },
-      'Confirm Void',
-      _react2.default.createElement(
-        _Icon2.default,
-        { className: classes.rightIcon },
-        _react2.default.createElement(_DeleteForever2.default, null)
-      )
-    )
-  );
-}
-
-VoidConfirm.propTypes = {
-  classes: _propTypes2.default.object.isRequired
-};
-
-exports.default = (0, _styles.withStyles)(styles)(VoidConfirm);
-
-/***/ }),
-/* 278 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(0);
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(__webpack_require__(1));
-
-var _createSvgIcon = _interopRequireDefault(__webpack_require__(32));
-
-var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
-  fill: "none",
-  d: "M0 0h24v24H0V0z"
-}), _react.default.createElement("path", {
-  d: "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"
-}), _react.default.createElement("path", {
-  fill: "none",
-  d: "M0 0h24v24H0z"
-})), 'DeleteForever');
-
-exports.default = _default;
-
-/***/ }),
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
 /* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42083,10 +41869,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(3);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _styles = __webpack_require__(17);
 
 var _Typography = __webpack_require__(19);
@@ -42177,19 +41959,23 @@ var SimpleModal = function (_React$Component) {
               '1. Connect to your Xero organisation. ',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
-              ' 2. Click Retrieve Invoices and then select which ones to void ',
+              ' 2. You can toggle receivables/payables and navigate through pages if desired. ',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
-              '3. You can toggle receivables/payables and navigate through pages',
+              '3. Click Retrieve Invoices and then press \'Find Duplicates\' to locate any duplicates.',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
-              '4. Press Void and Confirm the void ',
+              '4. Browse the recommended duplicates and create a new summarized invoice that\'ll save in Xero. ',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
-              'Notes: If voiding more than the API limits allow, the app will wait for you and submit the rest of the invoices once the API limit has reset (60 seconds). ',
+              '5. Ability to void the invoices post summary is coming soon!',
+              ' ',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
-              'Selected invoies will be reset everytime you navigate to a new page, this encourages a safe amount of voiding each time (100 max). ',
+              'Notes: Xero allows 60 API calls per minute so please respect these limits otherwise your changes won\'t save. ',
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              'Selected invoies will be reset everytime you navigate to a new page, this encourages a safe amount of summarizing. ',
               _react2.default.createElement('br', null),
               _react2.default.createElement('br', null),
               'If the hyperlinks don\'t work, please ensure you\'re logged in to the right organisation in your web browser (open a new tab for Xero and login).'
@@ -67279,6 +67065,127 @@ var _default = (0, _withTheme.default)()(Zoom);
 
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Button = __webpack_require__(27);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+var _styles = __webpack_require__(17);
+
+var _Icon = __webpack_require__(49);
+
+var _Icon2 = _interopRequireDefault(_Icon);
+
+var _Search = __webpack_require__(482);
+
+var _Search2 = _interopRequireDefault(_Search);
+
+var _green = __webpack_require__(338);
+
+var _green2 = _interopRequireDefault(_green);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = function styles(theme) {
+  return {
+    button: {
+      margin: theme.spacing.unit
+    },
+    rightIcon: {
+      marginLeft: theme.spacing.unit
+    }
+  };
+};
+
+var theme = (0, _styles.createMuiTheme)({
+  palette: {
+    primary: _green2.default,
+    color: 'white'
+  },
+  typography: {
+    useNextVariants: true
+  }
+});
+
+function CheckButton(props) {
+  var classes = props.classes;
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      _styles.MuiThemeProvider,
+      { theme: theme },
+      _react2.default.createElement(
+        _Button2.default,
+        {
+          variant: 'contained',
+          color: 'primary',
+          className: classes.button,
+          onClick: props.onClick
+        },
+        'Find Duplicates',
+        _react2.default.createElement(
+          _Icon2.default,
+          { className: classes.rightIcon },
+          _react2.default.createElement(_Search2.default, null)
+        )
+      )
+    )
+  );
+}
+
+CheckButton.propTypes = {
+  classes: _propTypes2.default.object.isRequired
+};
+
+exports.default = (0, _styles.withStyles)(styles)(CheckButton);
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(0);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(1));
+
+var _createSvgIcon = _interopRequireDefault(__webpack_require__(32));
+
+var _default = (0, _createSvgIcon.default)(_react.default.createElement(_react.default.Fragment, null, _react.default.createElement("path", {
+  d: "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+}), _react.default.createElement("path", {
+  fill: "none",
+  d: "M0 0h24v24H0z"
+})), 'Search');
+
+exports.default = _default;
 
 /***/ })
 /******/ ]);
