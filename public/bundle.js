@@ -28094,7 +28094,7 @@ var Title = function (_React$Component) {
                 noWrap: true,
                 className: classes.toolbarTitle
               },
-              'Xero Bulk Invoice Void Tool V2'
+              'Xero Daily Invoice Summarizer V2'
             )
           ),
           _react2.default.createElement(_Toolbar2.default, { variant: 'dense', className: classes.toolbarSecondary }),
@@ -28108,7 +28108,7 @@ var Title = function (_React$Component) {
             align: 'center',
             gutterBottom: true
           },
-          'Void multiple invoices with a single button'
+          'Easily reduce your invoice volume by creating summarized invoices for repeat customers'
         ),
         _react2.default.createElement(_IntroStepper2.default, null),
         this.state.confirm == false ? _react2.default.createElement(
@@ -28858,7 +28858,7 @@ var styles = function styles(theme) {
 };
 
 function getSteps() {
-  return ['Press "Connect to Xero" and then click "Retrieve Invoices"', 'Check invoices you wish to void', 'Press void'];
+  return ['Press "Connect to Xero" and then click "Retrieve Invoices"', 'When your happy with invoices coming through, click "Find Duplicates"', 'The next screen will display a summarized version, that you can post to Xero!'];
 }
 
 function getStepContent(stepIndex) {
@@ -28866,9 +28866,9 @@ function getStepContent(stepIndex) {
     case 0:
       return 'The first button will authenticate access to your organisation, the second button returns a page of invoices (100 per page max)';
     case 1:
-      return 'You can use the checkbox to select invoices to void and browse multiple pages';
+      return 'You can see the duplicate invoices and create a summarized invoice if you wish to.';
     case 2:
-      return 'Press Void and confirm the results in your Xero organisation';
+      return 'The following screens will guide you through the invoice creation process.';
     default:
       return 'Sorry we lost you, please reload the page';
   }

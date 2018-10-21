@@ -6,9 +6,9 @@ let app = express();
 let lastRequestToken = null;
 let xeroClient = new XeroClient({
   appType: 'public',
-  callbackUrl: 'https://bulkvoidxero.herokuapp.com/callback',
-  consumerKey: process.env.consumerKey,
-  consumerSecret: process.env.consumerSecret,
+  callbackUrl: 'http://localhost:3000/callback',
+  consumerKey: 'YICB8H2Y08CFTMSQFNF0853YRZ1RJZ',
+  consumerSecret: 'MLJ5OWMA54RRBEBYSPFWRAHWHKHAC1',
   userAgent: 'Tester (PUBLIC) - Application for testing Xero',
   redirectOnError: true
 });
@@ -34,27 +34,27 @@ app.get('/callback', async function(req, res) {
   res.redirect('/');
 });
 
-app.get('/invoices/:id', async function(req, res) {
-  let invoices = await xeroClient.invoices.get({
-    Statuses: 'AUTHORISED',
-    page: req.params.id
-  });
-  res.json(invoices);
-});
+// app.get('/invoices/:id', async function(req, res) {
+//   let invoices = await xeroClient.invoices.get({
+//     Statuses: 'AUTHORISED',
+//     page: req.params.id
+//   });
+//   res.json(invoices);
+// });
 
-app.post('/void', async function(req, res) {
-  let toVoid = req.body.void;
-  try {
-    for (let i = 0; i < toVoid.length; i++) {
-      xeroClient.invoices.update({
-        InvoiceID: toVoid[i],
-        Status: 'VOIDED'
-      });
-    }
-    res.json('Invoice(s) Voided');
-  } catch (ex) {
-    res.json(ex);
-  }
-});
+// app.post('/void', async function(req, res) {
+//   let toVoid = req.body.void;
+//   try {
+//     for (let i = 0; i < toVoid.length; i++) {
+//       xeroClient.invoices.update({
+//         InvoiceID: toVoid[i],
+//         Status: 'VOIDED'
+//       });
+//     }
+//     res.json('Invoice(s) Voided');
+//   } catch (ex) {
+//     res.json(ex);
+//   }
+// });
 
 module.exports = app;

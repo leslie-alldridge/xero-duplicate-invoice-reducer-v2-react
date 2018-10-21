@@ -107,7 +107,7 @@ class Title extends React.Component {
               noWrap
               className={classes.toolbarTitle}
             >
-              Xero Bulk Invoice Void Tool V2
+              Xero Daily Invoice Summarizer V2
             </Typography>
           </Toolbar>
           <Toolbar variant="dense" className={classes.toolbarSecondary} />
@@ -119,7 +119,8 @@ class Title extends React.Component {
           align="center"
           gutterBottom
         >
-          Void multiple invoices with a single button
+          Easily reduce your invoice volume by creating summarized invoices for
+          repeat customers
         </Typography>
         <IntroStepper />
         {this.state.confirm == false ? (
