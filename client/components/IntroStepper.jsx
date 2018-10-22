@@ -32,7 +32,7 @@ const styles = theme => ({
 function getSteps() {
   return [
     'Press "Connect to Xero" and then click "Retrieve Invoices"',
-    'When your happy with invoices coming through, click "Find Duplicates"',
+    'When you are happy with the invoices coming through, click "Find Duplicates"',
     'The next screen will display a summarized version, that you can post to Xero!'
   ];
 }
