@@ -43979,26 +43979,41 @@ var DupeTable = function (_React$Component) {
               _TableBody2.default,
               null,
               this.state.duplicates.map(function (invoice) {
-                return _react2.default.createElement(
-                  _TableRow2.default,
-                  null,
-                  _react2.default.createElement(
-                    _TableCell2.default,
-                    { numeric: true },
-                    'I\'m a dupe'
-                  ),
-                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                  _react2.default.createElement(_TableCell2.default, { numeric: true }),
-                  console.log(invoice.total),
-                  _react2.default.createElement(
-                    _TableCell2.default,
-                    { numeric: true },
-                    '$',
-                    invoice.total
-                  )
-                );
+                return invoice.datesList.map(function (date) {
+                  console.log(date);
+                  if (date.total !== 0) {
+                    return _react2.default.createElement(
+                      _TableRow2.default,
+                      null,
+                      _react2.default.createElement(
+                        _TableCell2.default,
+                        { numeric: true },
+                        'button goes here'
+                      ),
+                      _react2.default.createElement(
+                        _TableCell2.default,
+                        { numeric: true },
+                        date.date
+                      ),
+                      _react2.default.createElement(
+                        _TableCell2.default,
+                        { numeric: true },
+                        invoice.datesList[0].invoices[0].DueDate
+                      ),
+                      _react2.default.createElement(
+                        _TableCell2.default,
+                        { numeric: true },
+                        invoice.name
+                      ),
+                      _react2.default.createElement(
+                        _TableCell2.default,
+                        { numeric: true },
+                        '$',
+                        date.total
+                      )
+                    );
+                  }
+                });
               })
             )
           ),

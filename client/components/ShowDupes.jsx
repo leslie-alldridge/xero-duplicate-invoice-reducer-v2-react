@@ -74,47 +74,26 @@ class DupeTable extends React.Component {
               </TableHead>
               <TableBody>
                 {this.state.duplicates.map(invoice => {
-                  return (
-                    <TableRow>
-                      <TableCell numeric>I'm a dupe</TableCell>
-                      <TableCell numeric>
-                        {/* {this.state.type == 'ACCREC' && (
-                            <a
-                              href={`https://go.xero.com/AccountsReceivable/View.aspx?invoiceid=${
-                                invoice.InvoiceID
-                              }`}
-                              target="_blank"
-                            >
-                              {invoice.InvoiceNumber}
-                            </a>
-                          )}
-                          {this.state.type == 'ACCPAY' && (
-                            <a
-                              href={`https://go.xero.com/AccountsPayable/View.aspx?invoiceid=${
-                                invoice.InvoiceID
-                              }`}
-                              target="_blank"
-                            >
-                              {invoice.InvoiceNumber || 'No reference'}
-                            </a>
-                          )} */}
-                      </TableCell>
-                      <TableCell numeric>
-                        {/* {invoice[name].datesListDateString.slice(0, 10)} */}
-                      </TableCell>
-                      <TableCell numeric>
-                        {/* {invoice.DueDateString.slice(0, 10)} */}
-                      </TableCell>
-                      <TableCell numeric>
-                        {/* {String(invoice.Contact.Name).length > 10
-                          ? String(invoice.Contact.Name).substring(0, 10) +
-                            '...'
-                          : invoice.Contact.Name} */}
-                      </TableCell>
-                      {console.log(invoice.total)}
-                      <TableCell numeric>${invoice.total}</TableCell>
-                    </TableRow>
-                  );
+                  return invoice.datesList.map(date => {
+                    console.log(date);
+                    if (date.total !== 0) {
+                      return (
+                        <TableRow>
+                          <TableCell numeric>button goes here</TableCell>
+                          <TableCell numeric>{date.date}</TableCell>
+                          <TableCell numeric>
+                            {invoice.datesList[0].invoices[0].DueDate}
+                            {/* {invoice[name].datesListDateString.slice(0, 10)} */}
+                          </TableCell>
+                          <TableCell numeric>
+                            {invoice.name}
+                            {/* {invoice.DueDateString.slice(0, 10)} */}
+                          </TableCell>
+                          <TableCell numeric>${date.total}</TableCell>
+                        </TableRow>
+                      );
+                    }
+                  });
                 })}
               </TableBody>
             </Table>
