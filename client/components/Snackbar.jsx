@@ -28,7 +28,7 @@ class Notification extends React.Component {
           ContentProps={{
             'aria-describedby': 'message-id'
           }}
-          message={<span id="message-id">Invoice(s) Voided</span>}
+          message={<span id="message-id">Invoice Created</span>}
           action={[
             <IconButton
               key="close"

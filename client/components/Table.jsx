@@ -11,7 +11,7 @@ import Notification from './Snackbar';
 import ErrSnackbar from './ErrSnackbar';
 import SimpleModalWrapped from './Modals/Modal';
 import NoDupesModal from './Modals/NoDupes';
-import showDupes from './ShowDupes';
+import ShowDupes from './ShowDupes';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -22,7 +22,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
-import ShowDupes from './ShowDupes';
 
 const styles = theme => ({
   root: {
@@ -70,8 +69,6 @@ class InvoiceTable extends React.Component {
   }
 
   findDupes() {
-    console.log('hit');
-
     let apiInfo = this.state.rows;
     let data = {};
     for (let i = 0; i < apiInfo.length; i++) {
@@ -120,13 +117,10 @@ class InvoiceTable extends React.Component {
         delete data[names];
       }
     });
-    console.log(data);
     let newData = [];
     Object.keys(data).forEach(function(key) {
       newData.push(data[key]);
     });
-    console.log(newData);
-
     if (Object.keys(data).length < 1) {
       this.setState({
         loading: false,
@@ -142,14 +136,12 @@ class InvoiceTable extends React.Component {
           setTimeout(() => {
             this.swapPage();
           }, 50);
-          console.log(this.state.duplicates);
         }
       );
     }
   }
 
   swapPage() {
-    console.log(this.state.duplicates.length);
     setTimeout(() => {
       if (this.state.duplicates.length < 1) {
         this.setState({
@@ -167,8 +159,6 @@ class InvoiceTable extends React.Component {
         });
       }
     }, 150);
-
-    console.log(this.state);
   }
 
   handleClick() {
@@ -315,11 +305,12 @@ class InvoiceTable extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const numSelected = this.state.selected.length;
     const rowCount = this.state.rows.length;
     return (
       <div>
-        {this.state.showDupes && <ShowDupes data={this.state.duplicates} />}
+        {this.state.showDupes && (
+          <ShowDupes type={this.state.type} data={this.state.duplicates} />
+        )}
 
         {!this.state.loading &&
           !this.state.showDupes && (

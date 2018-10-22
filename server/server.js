@@ -43,25 +43,32 @@ app.get('/invoices/:id', async function(req, res) {
 });
 
 app.post('/createinvoice', async function(req, res) {
-  console.log(req.body);
-  let invoice = await xeroClient.invoices.create({
-    //invoice data goes here
-  });
+  let invoice = await xeroClient.invoices
+    .create({
+      Reference: req.body.reference || '',
+      Type: req.body.type,
+      Contact: {
+        Name: req.body.name
+      },
+      Date: req.body.date,
+      DueDate: req.body.due || '',
+      LineItems: [
+        {
+          Description: req.body.description,
+          Quantity: req.body.quantity,
+          UnitAmount: req.body.total,
+          AccountCode: req.body.accountcode || '',
+          ItemCode: req.body.itemcode || ''
+        }
+      ],
+      Status: req.body.status
+    })
+    .then(data => {
+      res.json('Invoice created');
+    })
+    .catch(err => {
+      res.json('Error! Please check your input is valid');
+    });
 });
-
-// app.post('/void', async function(req, res) {
-//   let toVoid = req.body.void;
-//   try {
-//     for (let i = 0; i < toVoid.length; i++) {
-//       xeroClient.invoices.update({
-//         InvoiceID: toVoid[i],
-//         Status: 'VOIDED'
-//       });
-//     }
-//     res.json('Invoice(s) Voided');
-//   } catch (ex) {
-//     res.json(ex);
-//   }
-// });
 
 module.exports = app;
