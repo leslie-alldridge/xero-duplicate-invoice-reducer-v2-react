@@ -13,7 +13,8 @@ I'm also wanting to see how reusable my code is, hoping it'll highlight any issu
 ## Todos
 
 add full support for payables (partially done)
-deploy and env variables
+
+deploy and env variables DONE
 
 ## Reflections
 
